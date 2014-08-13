@@ -2147,15 +2147,6 @@ toolbar[iconsize="small"] .toolbarbutton-badge-container {
 
 %include ../shared/social/chat.inc.css
 
-.chat-titlebar {
-  background-color: #d9d9d9;
-  background-image: linear-gradient(@toolbarHighlight@, rgba(255,255,255,0));
-}
-
-.chat-titlebar[selected] {
-  background-color: #f0f0f0;
-}
-
 .chatbar-button {
   -moz-appearance: none;
   background-color: #d9d9d9;

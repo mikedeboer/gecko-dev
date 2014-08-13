@@ -17,12 +17,12 @@ use {
   fill: #c1c1c1;
 }
 
-use[id$="-active"] {
-  fill: #c1c1c1;
+use[id$="-hover"] {
+  fill: #b3b3b3;
 }
 
-use[id$="-disabled"] {
-  fill: #c1c1c1;
+use[id$="-active"] {
+  fill: #ccc;
 }
 </style>
 <defs style="display:none">
@@ -33,13 +33,13 @@ use[id$="-disabled"] {
     10,5.162"/>
   <rect id="minimize-shape" y="3.6" fill-rule="evenodd" clip-rule="evenodd" width="10" height="2.8"/>
 </defs>
-<use id="close"               xlink:href="#close-shape"/>
-<use id="close-active"        xlink:href="#close-shape"/>
-<use id="close-disabled"      xlink:href="#close-shape"/>
-<use id="expand"              xlink:href="#expand-shape"/>
-<use id="expand-active"       xlink:href="#expand-shape"/>
-<use id="expand-disabled"     xlink:href="#expand-shape"/>
-<use id="minimize"            xlink:href="#minimize-shape"/>
-<use id="minimize-active"     xlink:href="#minimize-shape"/>
-<use id="minimize-disabled"   xlink:href="#minimize-shape"/>
+<use id="close"             xlink:href="#close-shape"/>
+<use id="close-hover"       xlink:href="#close-shape"/>
+<use id="close-active"      xlink:href="#close-shape"/>
+<use id="expand"            xlink:href="#expand-shape"/>
+<use id="expand-hover"      xlink:href="#expand-shape"/>
+<use id="expand-active"     xlink:href="#expand-shape"/>
+<use id="minimize"          xlink:href="#minimize-shape"/>
+<use id="minimize-hover"    xlink:href="#minimize-shape"/>
+<use id="minimize-active"   xlink:href="#minimize-shape"/>
 </svg>

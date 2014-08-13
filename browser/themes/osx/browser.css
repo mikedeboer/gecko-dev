@@ -4403,15 +4403,6 @@ toolbar[mode="icons"] > *|* > .toolbarbutton-badge[badge]:not([badge=""]):-moz-l
 
 %include ../shared/social/chat.inc.css
 
-.chat-titlebar {
-  background-color: #d9d9d9;
-  background-image: linear-gradient(rgba(255,255,255,.43), rgba(255,255,255,0));
-}
-
-.chat-titlebar[selected] {
-  background-color: #f0f0f0;
-}
-
 .chatbar-button {
   background-color: #d9d9d9;
   background-image: linear-gradient(rgba(255,255,255,.43), rgba(255,255,255,0));

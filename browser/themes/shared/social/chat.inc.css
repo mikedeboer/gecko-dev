@@ -49,6 +49,7 @@
   border: none;
   padding: 3px;
   margin: 0;
+  -moz-margin-end: 2px;
   background: none;
 }
 
@@ -78,7 +79,11 @@
   list-style-image: url("chrome://browser/skin/social/chat-icons.svg#close");
 }
 
-.chat-close-button:-moz-any(:hover,:hover:active) {
+.chat-close-button:hover {
+  list-style-image: url("chrome://browser/skin/social/chat-icons.svg#close-hover");
+}
+
+.chat-close-button:hover:active {
   list-style-image: url("chrome://browser/skin/social/chat-icons.svg#close-active");
 }
 
@@ -86,7 +91,11 @@
   list-style-image: url("chrome://browser/skin/social/chat-icons.svg#minimize");
 }
 
-.chat-minimize-button:-moz-any(:hover,:hover:active) {
+.chat-minimize-button:hover {
+  list-style-image: url("chrome://browser/skin/social/chat-icons.svg#minimize-hover");
+}
+
+.chat-minimize-button:hover:active {
   list-style-image: url("chrome://browser/skin/social/chat-icons.svg#minimize-active");
 }
 
@@ -95,7 +104,11 @@
   transform: rotate(180deg);
 }
 
-.chat-swap-button:-moz-any(:hover,:hover:active) {
+.chat-swap-button:hover {
+  list-style-image: url("chrome://browser/skin/social/chat-icons.svg#expand-hover");
+}
+
+.chat-swap-button:hover:active {
   list-style-image: url("chrome://browser/skin/social/chat-icons.svg#expand-active");
 }
 
@@ -104,27 +117,25 @@ chatbar > chatbox > .chat-titlebar > .chat-swap-button {
 }
 
 .chat-title {
-  font-weight: bold;
   color: black;
   text-shadow: none;
   cursor: inherit;
 }
 
 .chat-titlebar {
-  height: 20px;
-  min-height: 20px;
+  height: 30px;
+  min-height: 30px;
   width: 100%;
   margin: 0;
-  padding: 2px;
+  padding: 7px 10px;
   -moz-padding-start: 6px;
   border: none;
-  border-bottom: 1px solid #ccc;
   cursor: pointer;
 }
 
-.chat-titlebar > .notification-anchor-icon {
-  margin-left: 2px;
-  margin-right: 2px;
+.chat-titlebar,
+.chat-titlebar[selected] {
+  background-color: transparent;
 }
 
 .chat-titlebar[minimized="true"] {
@@ -138,13 +149,6 @@ chatbar > chatbox > .chat-titlebar > .chat-swap-button {
   background-position: 0 -10px;
 }
 
-chatbox[theme="dark"] > .chat-titlebar {
-  height: 30px;
-  min-height: 30px;
-  padding: 7px 12px;
-  border-bottom: none;
-}
-
 chatbox[theme="dark"] > .chat-titlebar,
 chatbox[theme="dark"] > .chat-titlebar[selected] {
   background-color: #000;
@@ -152,7 +156,6 @@ chatbox[theme="dark"] > .chat-titlebar[selected] {
 }
 
 chatbox[theme="dark"] > .chat-titlebar > hbox > .chat-title {
-  font-weight: normal;
   color: #c1c1c1;
 }
 
@@ -214,8 +217,8 @@ chatbar {
 
 chatbox {
   -moz-margin-start: 4px;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #fbfbfb;
+  border: 1px solid rgba(0,0,0,.35);
   border-bottom: none;
 }
 

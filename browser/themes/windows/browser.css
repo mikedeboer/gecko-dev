@@ -2813,15 +2813,6 @@ toolbarpaletteitem[place="palette"] > #switch-to-metro-button {
 
 %include ../shared/social/chat.inc.css
 
-.chat-titlebar {
-  background-color: #c4cfde;
-  background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));
-}
-
-.chat-titlebar[selected] {
-  background-color: #dae3f0;
-}
-
 .chatbar-button {
   -moz-appearance: none;
   background-color: #c4cfde;
