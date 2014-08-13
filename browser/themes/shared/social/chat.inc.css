@@ -138,20 +138,20 @@ chatbar > chatbox > .chat-titlebar > .chat-swap-button {
   background-position: 0 -10px;
 }
 
-chatbox[dark=true] > .chat-titlebar {
+chatbox[theme="dark"] > .chat-titlebar {
   height: 30px;
   min-height: 30px;
   padding: 7px 12px;
   border-bottom: none;
 }
 
-chatbox[dark=true] > .chat-titlebar,
-chatbox[dark=true] > .chat-titlebar[selected] {
+chatbox[theme="dark"] > .chat-titlebar,
+chatbox[theme="dark"] > .chat-titlebar[selected] {
   background-color: #000;
   background-image: none;
 }
 
-chatbox[dark=true] > .chat-titlebar > hbox > .chat-title {
+chatbox[theme="dark"] > .chat-titlebar > hbox > .chat-title {
   font-weight: normal;
   color: #c1c1c1;
 }

@@ -155,6 +155,7 @@ loop.conversation = (function(OT, mozL10n) {
      *                             by the router from the URL.
      */
     incoming: function(loopVersion) {
+      navigator.mozLoop.conversationWindowTheme = "light";
       navigator.mozLoop.startAlerting();
       this._conversation.set({loopVersion: loopVersion});
       this._conversation.once("accept", () => {
@@ -199,6 +200,7 @@ loop.conversation = (function(OT, mozL10n) {
      * Declines an incoming call.
      */
     decline: function() {
+      navigator.mozLoop.conversationWindowTheme = "light";
       navigator.mozLoop.stopAlerting();
       // XXX For now, we just close the window
       window.close();
@@ -211,6 +213,7 @@ loop.conversation = (function(OT, mozL10n) {
      *   after a callUrl is received
      */
     declineAndBlock: function() {
+      navigator.mozLoop.conversationWindowTheme = "light";
       navigator.mozLoop.stopAlerting();
       var token = navigator.mozLoop.getLoopCharPref('loopToken');
       this._client.deleteCallUrl(token, function(error) {
@@ -234,6 +237,8 @@ loop.conversation = (function(OT, mozL10n) {
         return;
       }
 
+      navigator.mozLoop.conversationWindowTheme = "dark";
+
       /*jshint newcap:false*/
       this.loadReactComponent(sharedViews.ConversationView({
         sdk: OT,
@@ -245,6 +250,8 @@ loop.conversation = (function(OT, mozL10n) {
      * Call has ended, display a feedback form.
      */
     feedback: function() {
+      navigator.mozLoop.conversationWindowTheme = "light";
+
       document.title = mozL10n.get("call_has_ended");
 
       var feebackAPIBaseUrl = navigator.mozLoop.getLoopCharPref(
@@ -272,6 +279,8 @@ loop.conversation = (function(OT, mozL10n) {
     // Do the initial L10n setup, we do this before anything
     // else to ensure the L10n environment is setup correctly.
     mozL10n.initialize(navigator.mozLoop);
+
+    navigator.mozLoop.conversationWindowTheme = "light";
 
     document.title = mozL10n.get("incoming_call_title");
 

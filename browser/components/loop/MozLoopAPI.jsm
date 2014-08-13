@@ -270,6 +270,19 @@ function injectLoopAPI(targetWindow) {
         return appVersionInfo;
       }
     },
+
+    conversationWindowTheme: {
+      enumerable: true,
+      set: function(value) {
+        let chromeWindow = getChromeWindow(targetWindow);
+        let chat = chromeWindow.document.getElementById("pinnedchats").selectedChat;
+        if (value == "dark") {
+          chat.setAttribute("theme", value);
+        } else {
+          chat.removeAttribute("theme");
+        }
+      }
+    }
   };
 
   let contentObj = Cu.createObjectIn(targetWindow);

@@ -414,8 +414,6 @@ let MozLoopServiceInternal = {
         return;
       }
 
-      chatbox.setAttribute("dark", true);
-
       chatbox.addEventListener("DOMContentLoaded", function loaded(event) {
         if (event.target != chatbox.contentDocument) {
           return;
