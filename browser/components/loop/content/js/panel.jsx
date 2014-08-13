@@ -121,7 +121,7 @@ loop.panel = (function(_, mozL10n) {
             <a href={privacy_notice_url} target="_blank">
               {__("legal_text_privacy")}
             </a>
-          ),
+          )
         });
         navigator.mozLoop.setLoopCharPref('seenToS', 'seen');
         return <p className="terms-service"
@@ -178,6 +178,12 @@ loop.panel = (function(_, mozL10n) {
     },
 
     componentDidMount: function() {
+      // If we've already got a URL, no need to go fetch one.  Really just for
+      // UI showcase.
+      if (this.props.callUrl) {
+        return;
+      }
+
       this.setState({pending: true});
       this.props.client.requestCallUrl(this.conversationIdentifier(),
                                        this._onCallUrlReceived);
