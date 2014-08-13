@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     x="0px" y="0px"
+     viewBox="0 0 36 36"
+     enable-background="new 0 0 36 36"
+     xml:space="preserve">
+<style>
+use:not(:target) {
+  display: none;
+}
+
+use {
+  fill: menutext;
+}
+
+use[id$="-active"] {
+  fill: -moz-mac-menutextselect;
+}
+
+use[id$="-disabled"] {
+  fill: -moz-mac-menutextdisable;
+}
+</style>
+<defs style="display:none">
+  <g id="guest-shape">
+    <circle fill-rule="evenodd" clip-rule="evenodd" fill="#231F20" cx="18" cy="15.977" r="3.073"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" fill="#231F20" d="M18,0C8.059,0,0,8.059,0,18c0,9.941,8.059,18,18,18
+      s18-8.059,18-18C36,8.059,27.941,0,18,0z M23.713,23.799c0.001-0.047,0.003-0.093,0.003-0.14h-0.003c0,0,0-0.001,0-0.001
+      c0-1.578-1.316-2.938-3.22-3.585l-2.492,2.493l-2.493-2.493c-1.905,0.647-3.221,2.007-3.221,3.585c0,0,0,0.001,0,0.001h-0.003
+      c0,0.047,0.003,0.093,0.003,0.14C10.873,22.356,10,20.381,10,18.201c0-4.418,3.582-8,8-8c4.418,0,8,3.582,8,8
+      C26,20.381,25.127,22.356,23.713,23.799z"/>
+  </g>
+</defs>
+<use id="guest"          xlink:href="#guest-shape"/>
+<use id="guest-active"   xlink:href="#guest-shape"/>
+<use id="guest-disabled" xlink:href="#guest-shape"/>
+</svg>

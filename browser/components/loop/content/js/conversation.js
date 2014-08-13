@@ -77,8 +77,7 @@ loop.conversation = (function(OT, mozL10n) {
       var btnClassAccept = "btn btn-success btn-accept";
       var btnClassBlock = "btn btn-error btn-block";
       var btnClassDecline = "btn btn-error btn-decline";
-      var conversationPanelClass = "incoming-call " +
-                                  loop.shared.utils.getTargetPlatform();
+      var conversationPanelClass = "incoming-call";
       var cx = React.addons.classSet;
       var declineDropdownMenuClasses = cx({
         "native-dropdown-menu": true,
@@ -275,6 +274,8 @@ loop.conversation = (function(OT, mozL10n) {
     mozL10n.initialize(navigator.mozLoop);
 
     document.title = mozL10n.get("incoming_call_title");
+
+    document.body.className += " " + loop.shared.utils.getTargetPlatform();
 
     var client = new loop.Client();
     router = new ConversationRouter({

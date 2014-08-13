@@ -202,8 +202,7 @@ loop.webapp = (function($, _, OT, webL10n) {
           "https://www.mozilla.org/privacy/'>" + privacy_notice_name + "</a>"
       });
 
-      var callButtonClasses = "btn btn-success btn-large " +
-                              loop.shared.utils.getTargetPlatform();
+      var callButtonClasses = "btn btn-success btn-large";
 
       return (
         /* jshint ignore:start */
