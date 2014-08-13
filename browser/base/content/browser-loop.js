@@ -28,7 +28,14 @@ XPCOMUtils.defineLazyModuleGetter(this, "PanelFrame", "resource:///modules/Panel
       };
 
       PanelFrame.showPopup(window, PanelUI, event.target, "loop", null,
-                           "about:looppanel", null, callback);
+                           "about:looppanel", null, callback, function(width, height) {
+                             // Adjust the height of the panel with 14px.
+                             return {
+                               width: width,
+                               height: height + 14
+                             };
+                           }
+      );
     },
 
     /**

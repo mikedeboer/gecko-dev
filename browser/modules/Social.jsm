@@ -388,7 +388,7 @@ SocialErrorListener.prototype = {
 };
 
 
-function sizeSocialPanelToContent(panel, iframe) {
+function sizeSocialPanelToContent(panel, iframe, correctSize = function() {}) {
   let doc = iframe.contentDocument;
   if (!doc || !doc.body) {
     return;
@@ -415,6 +415,13 @@ function sizeSocialPanelToContent(panel, iframe) {
   // add extra space the panel needs if any
   width += panel.boxObject.width - iframe.boxObject.width;
   height += panel.boxObject.height - iframe.boxObject.height;
+  let corrected = correctSize(width, height);
+  if (corrected) {
+    if (corrected.width)
+    width = corrected.width;
+    if (corrected.height)
+      height = corrected.height;
+  }
 
   // when size is computed, we want to be sure changes are "significant" since
   // some sites will resize when the iframe is resized by a small amount, making
@@ -429,18 +436,18 @@ function DynamicResizeWatcher() {
 }
 
 DynamicResizeWatcher.prototype = {
-  start: function DynamicResizeWatcher_start(panel, iframe) {
+  start: function DynamicResizeWatcher_start(panel, iframe, correctSize) {
     this.stop(); // just in case...
     let doc = iframe.contentDocument;
     this._mutationObserver = new iframe.contentWindow.MutationObserver(function(mutations) {
-      sizeSocialPanelToContent(panel, iframe);
+      sizeSocialPanelToContent(panel, iframe, correctSize);
     });
     // Observe anything that causes the size to change.
     let config = {attributes: true, characterData: true, childList: true, subtree: true};
     this._mutationObserver.observe(doc, config);
     // and since this may be setup after the load event has fired we do an
     // initial resize now.
-    sizeSocialPanelToContent(panel, iframe);
+    sizeSocialPanelToContent(panel, iframe, correctSize);
   },
   stop: function DynamicResizeWatcher_stop() {
     if (this._mutationObserver) {

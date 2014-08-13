@@ -111,7 +111,7 @@ let PanelFrame = {
    * @param {Function} aCallback Optional, callback to be called with the iframe when it is
    *                             set up.
    */
-  showPopup: function(aWindow, aPanelUI, aToolbarButton, aType, aOrigin, aSrc, aSize, aCallback) {
+  showPopup: function(aWindow, aPanelUI, aToolbarButton, aType, aOrigin, aSrc, aSize, aCallback, aCorrectSize) {
     // if we're overflowed, our anchor needs to be the overflow button
     let widgetGroup = CustomizableUI.getWidget(aToolbarButton.getAttribute("id"));
     let widget = widgetGroup.forWindow(aWindow);
@@ -177,7 +177,7 @@ let PanelFrame = {
         notificationFrame.docShell.isActive = true;
         notificationFrame.docShell.isAppTab = true;
         if (dynamicResizer)
-          dynamicResizer.start(panel, notificationFrame);
+          dynamicResizer.start(panel, notificationFrame, aCorrectSize);
         dispatchPanelEvent(aType + "FrameShow");
       };
       if (!inMenuPanel)
