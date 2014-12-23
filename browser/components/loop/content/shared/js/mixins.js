@@ -198,15 +198,12 @@ loop.shared.mixins = (function() {
       // @see https://bugzilla.mozilla.org/show_bug.cgi?id=1020445
       return {
         insertMode: "append",
+        fitMode: "contain",
         width: "100%",
         height: "100%",
         publishVideo: options.publishVideo,
+        showControls: false,
         style: {
-          audioLevelDisplayMode: "off",
-          bugDisplayMode: "off",
-          buttonDisplayMode: "off",
-          nameDisplayMode: "off",
-          videoDisabledDisplayMode: "off"
         }
       };
     },
