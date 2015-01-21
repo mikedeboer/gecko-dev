@@ -257,8 +257,16 @@ loop.OTSdkDriver = (function() {
     _onRemoteStreamCreated: function(event) {
       this.publisherConfig.fitMode = "cover";
 console.log(event.stream.videoType);
+
+      var remoteElement;
+      if (event.stream.videoType === "screen") {
+        remoteElement = "null";
+      } else {
+        remoteElement = this.getRemoteElement();
+      }
+
       this.session.subscribe(event.stream,
-        this.getRemoteElement(), this.publisherConfig);
+        remoteElement, this.publisherConfig);
 
       this._subscribedRemoteStream = true;
       if (this._checkAllStreamsConnected()) {
