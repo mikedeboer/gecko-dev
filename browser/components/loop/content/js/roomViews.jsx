@@ -195,6 +195,7 @@ loop.roomViews = (function(mozL10n) {
             publishVideo: !this.state.videoMuted
           }),
           getLocalElementFunc: this._getElement.bind(this, ".local"),
+          getScreenShareElementFunc: this._getElement.bind(this, ".screen-share"),
           getRemoteElementFunc: this._getElement.bind(this, ".remote")
         }));
       }
@@ -228,6 +229,15 @@ loop.roomViews = (function(mozL10n) {
         }));
     },
 
+    /**
+     * XXX
+     */
+    handleScreenShare: function() {
+      this.props.dispatcher.dispatch(
+        new sharedActions.StartScreenShare({
+        }));
+    },
+
     render: function() {
       if (this.state.roomName) {
         this.setTitle(this.state.roomName);
@@ -239,6 +249,11 @@ loop.roomViews = (function(mozL10n) {
         "local-stream-audio": this.state.videoMuted,
         "room-preview": this.state.roomState !== ROOM_STATES.HAS_PARTICIPANTS
       });
+
+      var handleScreenShareFunc;
+      if (mozLoop.getLoopPref("screenshare.enabled")) {
+        handleScreenShareFunc = this.handleScreenShare;
+      }
 
       switch(this.state.roomState) {
         case ROOM_STATES.FAILED:
@@ -272,12 +287,14 @@ loop.roomViews = (function(mozL10n) {
                       <div className="video_inner remote"></div>
                     </div>
                     <div className={localStreamClasses}></div>
+                    <div className="screen-share hide"></div>
                   </div>
                   <sharedViews.ConversationToolbar
                     video={{enabled: !this.state.videoMuted, visible: true}}
                     audio={{enabled: !this.state.audioMuted, visible: true}}
                     publishStream={this.publishStream}
-                    hangup={this.leaveRoom} />
+                    hangup={this.leaveRoom}
+                    handleScreenShare={handleScreenShareFunc}/>
                 </div>
               </div>
             </div>

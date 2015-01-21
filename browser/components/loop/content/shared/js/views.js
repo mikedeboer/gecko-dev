@@ -46,6 +46,7 @@ loop.shared.views = (function(_, OT, l10n) {
       var classesObj = {
         "btn": true,
         "media-control": true,
+        "transparent-button": true,
         "local-media": this.props.scope === "local",
         "muted": !this.props.enabled,
         "hide": !this.props.visible
@@ -89,6 +90,7 @@ loop.shared.views = (function(_, OT, l10n) {
       audio: React.PropTypes.object.isRequired,
       hangup: React.PropTypes.func.isRequired,
       publishStream: React.PropTypes.func.isRequired,
+      handleScreenShare: React.PropTypes.func,
       hangupButtonLabel: React.PropTypes.string,
       enableHangup: React.PropTypes.bool,
     },
@@ -105,12 +107,26 @@ loop.shared.views = (function(_, OT, l10n) {
       this.props.publishStream("audio", !this.props.audio.enabled);
     },
 
+    handleScreenShare: function() {
+      this.props.handleScreenShare();
+    },
+
     _getHangupButtonLabel: function() {
       return this.props.hangupButtonLabel || l10n.get("hangup_button_caption2");
     },
 
     render: function() {
       var cx = React.addons.classSet;
+
+      var screenShareClasses = cx({
+        "btn": true,
+        "btn-screen-share": true,
+        "transparent-button": true,
+        "active": true,
+        "hide": !this.props.handleScreenShare
+      });
+
+// XXX Fix L10n
       return (
         React.createElement("ul", {className: "conversation-toolbar"}, 
           React.createElement("li", {className: "conversation-toolbar-btn-box btn-hangup-entry"}, 
@@ -131,6 +147,12 @@ loop.shared.views = (function(_, OT, l10n) {
                                 enabled: this.props.audio.enabled, 
                                 visible: this.props.audio.visible, 
                                 scope: "local", type: "audio"})
+          ), 
+          React.createElement("li", {className: "conversation-toolbar-btn-box btn-screen-share-entry"}, 
+            React.createElement("button", {className: screenShareClasses, onClick: this.handleScreenShare, 
+                    title: "screenshare"}, 
+              "Screen"
+            )
           )
         )
       );

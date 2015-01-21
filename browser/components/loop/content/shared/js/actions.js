@@ -160,6 +160,8 @@ loop.shared.actions = (function() {
       publisherConfig: Object,
       // The local stream element
       getLocalElementFunc: Function,
+      // The screen share element
+//      getScreenShareElementFunc: [Function, undefined],
       // The remote stream element
       getRemoteElementFunc: Function
     }),
@@ -184,6 +186,12 @@ loop.shared.actions = (function() {
       type: String,
       // Whether or not to enable the stream.
       enabled: Boolean
+    }),
+
+    /**
+     * Used to start a screen share
+     */
+    StartScreenShare: Action.define("startScreenShare", {
     }),
 
     /**

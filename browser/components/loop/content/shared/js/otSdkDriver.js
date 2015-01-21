@@ -29,7 +29,8 @@ loop.OTSdkDriver = (function() {
 
       this.dispatcher.register(this, [
         "setupStreamElements",
-        "setMute"
+        "setMute",
+        "startScreenShare",
       ]);
   };
 
@@ -43,6 +44,7 @@ loop.OTSdkDriver = (function() {
      */
     setupStreamElements: function(actionData) {
       this.getLocalElement = actionData.getLocalElementFunc;
+      this.getScreenShareElementFunc = actionData.getScreenShareElementFunc;
       this.getRemoteElement = actionData.getRemoteElementFunc;
       this.publisherConfig = actionData.publisherConfig;
 
@@ -71,6 +73,24 @@ loop.OTSdkDriver = (function() {
       } else {
         this.publisher.publishVideo(actionData.enabled);
       }
+    },
+
+    /**
+     * XXX
+     */
+    startScreenShare: function() {
+      this.screenshare = this.sdk.initPublisher(this.getScreenShareElementFunc(), {videoSource: "window"});
+      this.screenshare.on("accessAllowed", this._onScreenShareComplete.bind(this));
+      this.screenshare.on("accessDenied", this._onScreenShareDenied.bind(this));
+    },
+
+    _onScreenShareComplete: function() {
+      console.log("Screen share complete");
+      this.session.publish(this.screenshare);
+    },
+
+    _onScreenShareDenied: function() {
+      console.log("Screen share denied");
     },
 
     /**
@@ -236,6 +256,7 @@ loop.OTSdkDriver = (function() {
      */
     _onRemoteStreamCreated: function(event) {
       this.publisherConfig.fitMode = "cover";
+console.log(event.stream.videoType);
       this.session.subscribe(event.stream,
         this.getRemoteElement(), this.publisherConfig);
 
