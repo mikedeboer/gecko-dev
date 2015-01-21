@@ -172,6 +172,8 @@ loop.roomViews = (function(mozL10n) {
       dispatcher: React.PropTypes.instanceOf(loop.Dispatcher).isRequired,
       feedbackStore:
         React.PropTypes.instanceOf(loop.store.FeedbackStore).isRequired,
+      mozLoop:
+        React.PropTypes.object.isRequired,
     },
 
     _renderInvitationOverlay: function() {
@@ -251,7 +253,7 @@ loop.roomViews = (function(mozL10n) {
       });
 
       var handleScreenShareFunc;
-      if (mozLoop.getLoopPref("screenshare.enabled")) {
+      if (this.props.mozLoop.getLoopPref("screenshare.enabled")) {
         handleScreenShareFunc = this.handleScreenShare;
       }
 
