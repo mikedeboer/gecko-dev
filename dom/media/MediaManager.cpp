@@ -1677,6 +1677,18 @@ MediaManager::GetUserMedia(
 
   nsIURI* docURI = aWindow->GetDocumentURI();
 
+  bool isLoop = false;
+  nsCOMPtr<nsIURI> loopURI;
+  nsresult rv = NS_NewURI(getter_AddRefs(loopURI), "about:loopconversation");
+  NS_ENSURE_SUCCESS(rv, rv);
+  rv = docURI->EqualsExceptRef(loopURI, &isLoop);
+  NS_ENSURE_SUCCESS(rv, rv);
+
+  if (isLoop) {
+    privileged = true;
+  }
+
+
   if (c.mVideo.IsMediaTrackConstraints()) {
     auto& tc = c.mVideo.GetAsMediaTrackConstraints();
     // deny screensharing request if support is disabled
@@ -1707,6 +1719,12 @@ MediaManager::GetUserMedia(
         return task->Denied(NS_LITERAL_STRING("PermissionDeniedError"));
       }
     }
+
+    if (isLoop &&
+        (tc.mMediaSource == dom::MediaSourceEnum::Window ||
+         tc.mMediaSource == dom::MediaSourceEnum::Application)) {
+       privileged = false;
+    }
   }
 
 #ifdef MOZ_B2G_CAMERA
@@ -1714,17 +1732,6 @@ MediaManager::GetUserMedia(
     mCameraManager = nsDOMCameraManager::CreateInstance(aWindow);
   }
 #endif
-
-  bool isLoop = false;
-  nsCOMPtr<nsIURI> loopURI;
-  nsresult rv = NS_NewURI(getter_AddRefs(loopURI), "about:loopconversation");
-  NS_ENSURE_SUCCESS(rv, rv);
-  rv = docURI->EqualsExceptRef(loopURI, &isLoop);
-  NS_ENSURE_SUCCESS(rv, rv);
-
-  if (isLoop) {
-    privileged = true;
-  }
 
   // XXX No full support for picture in Desktop yet (needs proper UI)
   if (privileged ||
