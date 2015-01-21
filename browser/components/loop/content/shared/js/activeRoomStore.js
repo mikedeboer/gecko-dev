@@ -18,6 +18,13 @@ loop.store.ActiveRoomStore = (function() {
   var REST_ERRNOS = loop.shared.utils.REST_ERRNOS;
 
   var ROOM_STATES = loop.store.ROOM_STATES;
+
+  var SCREENSHARE_STATES = loop.store.SCREENSHARE_STATES = {
+    NOT_SHARING: "ss-not-sharing",
+    SHARING_PENDING: "ss-sharing-pending",
+    SHARING_ACTIVE: "ss-sharing-active"
+  };
+
   /**
    * Active room store.
    *
@@ -68,7 +75,8 @@ loop.store.ActiveRoomStore = (function() {
         // session. 'Used' means at least one call has been placed
         // with it. Entering and leaving the room without seeing
         // anyone is not considered as 'used'
-        used: false
+        used: false,
+        screenSharingState: SCREENSHARE_STATES.NOT_SHARING
       };
     },
 
@@ -115,6 +123,8 @@ loop.store.ActiveRoomStore = (function() {
         "connectedToSdkServers",
         "connectionFailure",
         "setMute",
+        "startScreenShare",
+        "screenSharingState",
         "remotePeerDisconnected",
         "remotePeerConnected",
         "windowUnload",
@@ -364,6 +374,30 @@ loop.store.ActiveRoomStore = (function() {
       var muteState = {};
       muteState[actionData.type + "Muted"] = !actionData.enabled;
       this.setStoreState(muteState);
+    },
+
+    /**
+     * Used to note that the screensharing is now pending.
+     */
+    startScreenShare: function() {
+      this.setStoreState({
+        screenSharingState: SCREENSHARE_STATES.SHARING_PENDING
+      });
+    },
+
+    /**
+     * Used to note the current screensharing state.
+     */
+    screenSharingState: function(actionData) {
+      if (actionData.active) {
+        this.setStoreState({
+          screenSharingState: SCREENSHARE_STATES.SHARING_ACTIVE
+        });
+      } else {
+        this.setStoreState({
+          screenSharingState: SCREENSHARE_STATES.NOT_SHARING
+        });
+      }
     },
 
     /**

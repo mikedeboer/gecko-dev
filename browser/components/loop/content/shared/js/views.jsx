@@ -74,6 +74,38 @@ loop.shared.views = (function(_, OT, l10n) {
   });
 
   /**
+   * XXX
+   */
+  var ScreenShareControlButton = React.createClass({
+    propTypes: {
+      action: React.PropTypes.func.isRequired,
+      active: React.PropTypes.bool.isRequired,
+    },
+
+    handleClick: function() {
+      this.props.action();
+    },
+
+// XXX Fix L10n
+    render: function() {
+      var screenShareClasses = React.addons.classSet({
+        "btn": true,
+        "btn-screen-share": true,
+        "transparent-button": true,
+        "active": this.props.active,
+        "hide": !this.props.action
+      });
+
+      return (
+        <button className={screenShareClasses} onClick={this.handleClick}
+                title="screenshare">
+          Screen
+        </button>
+      );
+    }
+  });
+
+  /**
    * Conversation controls.
    */
   var ConversationToolbar = React.createClass({
@@ -81,6 +113,7 @@ loop.shared.views = (function(_, OT, l10n) {
       return {
         video: {enabled: true, visible: true},
         audio: {enabled: true, visible: true},
+        screenShare: {active: false},
         enableHangup: true
       };
     },
@@ -88,9 +121,9 @@ loop.shared.views = (function(_, OT, l10n) {
     propTypes: {
       video: React.PropTypes.object.isRequired,
       audio: React.PropTypes.object.isRequired,
+      screenShare: React.PropTypes.object,
       hangup: React.PropTypes.func.isRequired,
       publishStream: React.PropTypes.func.isRequired,
-      handleScreenShare: React.PropTypes.func,
       hangupButtonLabel: React.PropTypes.string,
       enableHangup: React.PropTypes.bool,
     },
@@ -107,26 +140,11 @@ loop.shared.views = (function(_, OT, l10n) {
       this.props.publishStream("audio", !this.props.audio.enabled);
     },
 
-    handleScreenShare: function() {
-      this.props.handleScreenShare();
-    },
-
     _getHangupButtonLabel: function() {
       return this.props.hangupButtonLabel || l10n.get("hangup_button_caption2");
     },
 
     render: function() {
-      var cx = React.addons.classSet;
-
-      var screenShareClasses = cx({
-        "btn": true,
-        "btn-screen-share": true,
-        "transparent-button": true,
-        "active": true,
-        "hide": !this.props.handleScreenShare
-      });
-
-// XXX Fix L10n
       return (
         <ul className="conversation-toolbar">
           <li className="conversation-toolbar-btn-box btn-hangup-entry">
@@ -149,10 +167,8 @@ loop.shared.views = (function(_, OT, l10n) {
                                 scope="local" type="audio" />
           </li>
           <li className="conversation-toolbar-btn-box btn-screen-share-entry">
-            <button className={screenShareClasses} onClick={this.handleScreenShare}
-                    title="screenshare">
-              Screen
-            </button>
+            <ScreenShareControlButton action={this.props.screenShare.handleScreenShare}
+                                      active={this.props.screenShare.active} />
           </li>
         </ul>
       );

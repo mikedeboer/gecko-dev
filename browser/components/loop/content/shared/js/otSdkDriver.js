@@ -31,6 +31,7 @@ loop.OTSdkDriver = (function() {
         "setupStreamElements",
         "setMute",
         "startScreenShare",
+        "endScreenShare"
       ]);
   };
 
@@ -84,9 +85,20 @@ loop.OTSdkDriver = (function() {
       this.screenshare.on("accessDenied", this._onScreenShareDenied.bind(this));
     },
 
+    endScreenShare: function() {
+      this.session.unpublish(this.screenshare);
+      delete this.screenshare;
+      this.dispatcher.dispatch(new sharedActions.ScreenSharingState({
+        active: false
+      }));
+    },
+
     _onScreenShareComplete: function() {
       console.log("Screen share complete");
       this.session.publish(this.screenshare);
+      this.dispatcher.dispatch(new sharedActions.ScreenSharingState({
+        active: true
+      }));
     },
 
     _onScreenShareDenied: function() {

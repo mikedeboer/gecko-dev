@@ -195,6 +195,19 @@ loop.shared.actions = (function() {
     }),
 
     /**
+     * Used to end a screen share
+     */
+    EndScreenShare: Action.define("endScreenShare", {
+    }),
+
+    /**
+     * Used to notifiy that screen sharing is active or not.
+     */
+    ScreenSharingState: Action.define("screenSharingState", {
+      active: Boolean
+    }),
+
+    /**
      * Creates a new room.
      * XXX: should move to some roomActions module - refs bug 1079284
      */

@@ -14,6 +14,7 @@ loop.roomViews = (function(mozL10n) {
   var sharedActions = loop.shared.actions;
   var sharedMixins = loop.shared.mixins;
   var ROOM_STATES = loop.store.ROOM_STATES;
+  var SCREENSHARE_STATES = loop.store.SCREENSHARE_STATES;
   var sharedViews = loop.shared.views;
 
   /**
@@ -235,9 +236,13 @@ loop.roomViews = (function(mozL10n) {
      * XXX
      */
     handleScreenShare: function() {
-      this.props.dispatcher.dispatch(
-        new sharedActions.StartScreenShare({
-        }));
+      if (this.state.screenSharingState === SCREENSHARE_STATES.SHARING_ACTIVE) {
+        this.props.dispatcher.dispatch(
+          new sharedActions.EndScreenShare({}));
+      } else {
+        this.props.dispatcher.dispatch(
+          new sharedActions.StartScreenShare({}));
+      }
     },
 
     render: function() {
@@ -252,9 +257,15 @@ loop.roomViews = (function(mozL10n) {
         "room-preview": this.state.roomState !== ROOM_STATES.HAS_PARTICIPANTS
       });
 
-      var handleScreenShareFunc;
+      var screenShareData = {
+        active: false,
+        handleScreenShare: null
+      };
+
       if (this.props.mozLoop.getLoopPref("screenshare.enabled")) {
-        handleScreenShareFunc = this.handleScreenShare;
+        screenShareData.active =
+          this.state.screenSharingState === SCREENSHARE_STATES.SHARING_ACTIVE;
+        screenShareData.handleScreenShare = this.handleScreenShare;
       }
 
       switch(this.state.roomState) {
@@ -296,7 +307,7 @@ loop.roomViews = (function(mozL10n) {
                     audio={{enabled: !this.state.audioMuted, visible: true}}
                     publishStream={this.publishStream}
                     hangup={this.leaveRoom}
-                    handleScreenShare={handleScreenShareFunc}/>
+                    screenShare={screenShareData}/>
                 </div>
               </div>
             </div>
